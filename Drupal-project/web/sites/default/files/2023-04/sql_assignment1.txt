@@ -1,0 +1,199 @@
+
+
+--Creating a database names assignmnet1
+create database assignment1;
+
+use assignment1;
+
+--Creating a table named Teams which
+
+create table Teams (
+    teamName VARCHAR(255),
+    captainName VARCHAR(255),
+    PRIMARY KEY(teamName)
+);
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('India','Virat kohli');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('Australia','Steve smith');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('West Indies','Daren smith');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('England','Joe root');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('South Africa','David miller');
+
+CREATE TABLE Schedules (
+  matchID INT,
+  matchDate DATE,
+  venueName VARCHAR(255),
+  team1Name VARCHAR(255),
+  team2Name VARCHAR(255),
+  tossWinner VARCHAR(255),
+  matchWinner VARCHAR(255),
+  PRIMARY KEY (matchID),
+  FOREIGN KEY (team1Name) REFERENCES Teams(teamName),
+  FOREIGN KEY (team2Name) REFERENCES Teams(teamName),
+  FOREIGN KEY (tossWinner) REFERENCES Teams(teamName),
+  FOREIGN KEY (matchWinner) REFERENCES Teams(teamName)
+);
+
+INSERT INTO Schedules (matchID,matchDate,venueName,team1Name,team2Name,tossWinner,matchWinner)
+VALUES (1,'2023-12-23','Kolkata','India','Australia','Australia','India');
+
+INSERT INTO Schedules (matchID,matchDate,venueName,team1Name,team2Name,tossWinner,matchWinner)
+VALUES (2,'2023-12-23','Chennai','West Indies','England','West indies','England');
+
+INSERT INTO Schedules (matchID,matchDate,venueName,team1Name,team2Name,tossWinner,matchWinner)
+VALUES (3,'2023-12-23','Bangalore','South Africa','India','India','South Africa');
+
+select * from Schedules;
+
+show databases;
+
+use innoraft;
+
+show tables;
+
+use assignment1; 
+show tables;
+
+select * from Teams;
+
+select * from Schedules;
+
+show tables;
+
+INSERT INTO Schedules (matchID,matchDate,venueName,team1Name,team2Name,tossWinner,matchWinner)
+VALUES (4,'2023-12-25','Hydrabad','South Africa','India','India','South Africa');
+
+INSERT INTO Schedules (matchID,matchDate,venueName,team1Name,team2Name,tossWinner,matchWinner)
+VALUES (5,'2023-12-26','Bangalore','Australia','India','India','Australia');
+
+select * from Schedules;
+
+use assignment1;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner
+from Schedules as s;
+
+select * from Teams;
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('XYZ','Kunal');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('PQR','Uttam');
+
+INSERT INTO Teams (teamName,captainName)
+VALUES ('EFG','Rohit');
+
+select * from Teams;
+
+select * from Schedules;
+
+select * from Teams;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName and s.team2Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc1,tm.captainName as tc2
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName and s.team2Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName 
+order by s.venueName;
+
+select * from Teams;
+
+use assignment1;
+
+select * from Schedules;
+
+select * from Teams;
+
+select * from Schedules;
+
+select * from Teams;
+
+select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2;
+
+select * from Teams;
+
+select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2;
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,tm.captainName as tc
+from Schedules as s
+left join Teams as tm
+on s.team1Name = tm.teamName 
+order by s.venueName;
+
+select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2;
+
+
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,teamTable.tc1 as team1Captain,teamTable.tc2 as team2Captain
+from Schedules as s
+left join
+(select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2) as teamTable
+on s.team1Name = teamTable.team1 and s.team2Name = teamTable.team2;
+
+
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,teamTable.tc1 as team1Captain,teamTable.tc2 as team2Captain
+from Schedules as s
+left join
+(select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2) as teamTable
+on s.team1Name = teamTable.team1 and s.team2Name = teamTable.team2;
+
+
+
+select s.matchDate,s.venueName,s.team1Name,s.team2Name,s.tossWinner,s.matchWinner,teamTable.tc1 as team1Captain,teamTable.tc2 as team2Captain
+from Schedules as s
+left join
+(select tm1.teamName as team1,tm1.captainName as tc1,
+tm2.teamName as team2,tm2.captainName as tc2
+from Teams as tm1,Teams as tm2) as teamTable
+on s.team1Name = teamTable.team1 and s.team2Name = teamTable.team2;
+
